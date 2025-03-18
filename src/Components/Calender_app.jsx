@@ -62,8 +62,24 @@ const Calender_app = () => {
     <div className="events">
       <div className="events-popup">
         <div className="time-input">
-          <div className="event-popup-time">
-            
+          <div className="event-popup-time">Time</div>
+          <input type="number" name='hours' min={0} max={24} className='hours' />
+          <input type="number" name='minutes' min={0} max={60} className='minutes' />
+        </div>
+        <textarea name="" placeholder='Enter Events Text (Maximunm 60 Characters)' id=""></textarea>
+        <button className="event-popup-btn">Add Events</button>
+        <button className="close-event-popup">
+          <i className="bx bx-x"></i>
+        </button>
+        <div className="event">
+          <div className="event-date-wrapper">
+            <div className="event-date">May 16, 2025</div>
+            <div className="event-time">15:00</div>
+          </div>
+          <div className="event-text">Meeting with John</div>
+          <div className="event-buttons">
+            <i className="bx bxs-edit-alt"></i>
+            <i className="bx bxs-message-alt-x"></i>
           </div>
         </div>
       </div>
