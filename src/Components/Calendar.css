@@ -35,8 +35,9 @@
 .heading{
   font-family: 'Bebas Neue' , sans-serif;
   font-size: clamp(4rem, 3.8cqi, 7rem);
-  color: white;
+  color: #fff;
   letter-spacing: .3rem;
+  padding-left: 1.3rem;
 }
 
 .navigate-date{
@@ -87,4 +88,29 @@
   color: #78879e;
   display: flex;
   justify-content: center;
+}
+
+.days{
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+
+.days span{
+  font-size: clamp(1.2em,  1cqi, 1.6rem);
+  width: calc(100% / 7);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ddd;
+  cursor: pointer;
+  text-shadow: 0 0.5 1rem rgba(0, 0,0 , .2);
+}
+
+.current-day{
+  background-color: #ef9011;
+  border-radius: 50%;
+  box-shadow: 0 0 1.5rem 1rem rgba(239, 144, 17 ,.3);
 }
