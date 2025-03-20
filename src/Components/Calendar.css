@@ -114,3 +114,22 @@
   border-radius: 50%;
   box-shadow: 0 0 1.5rem 1rem rgba(239, 144, 17 ,.3);
 }
+
+.events{
+  width: 60%;
+  height: 100%;
+  padding: 3rem 0;
+}
+
+.events-popup{
+  display: none;
+}
+
+.event{
+  width: 100%;
+  height: 7rem;
+  background-color: #003aff;
+  padding:  1.5rem 0;
+  border-radius: 1rem;
+
+}
