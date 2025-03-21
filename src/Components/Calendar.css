@@ -186,10 +186,67 @@
   align-items: center;
   margin-bottom: 2rem;
   position: relative;
+}
 
+.events-popup textarea{
+  width: 15rem ,15cqi, 25rem;
+  aspect-ratio: 5 / 2;
+  resize: none;
+  background-color: #0f1319;
+  border: none;
+  padding: 1rem;
+  border-radius: .5rem;
+  color: #78879e;
+  transition: border  .5s;
 
 }
 
+
+.events-popup textarea::placeholder{
+  font-size: clamp(1rem , .8cqi , 1.2rem);
+  color: #78879e;
+  
+}
+
+.events-popup textarea:focus::placeholder{
+  color: transparent;
+
+}
+
+.events-popup textarea:focus{
+  border: .1rem solid #003aff;
+}
+
+.event-popup-btn{
+  width: clamp(15rem, 15cqi, 25rem);
+  height: 4rem;
+  background-color: #ef9011;
+  color: #fff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.5rem, 1.5cqi, 2.2rem);
+  letter-spacing: .1rem;
+  border: none;
+  box-shadow: 0 0 1.5rem 1rem rgba(239, 144, 17 ,.2);
+  cursor: pointer;
+}
+
+.close-event-popup{
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.close-event-popup i{
+  font-size: 2.5rem;
+  color: #fff;
+}
+
+.event-popup-btn:active{
+  transform: translateY(.1rem);
+}
 
 .event-date-wrapper{
   display: flex;
