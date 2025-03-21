@@ -71,6 +71,9 @@ const Calender_app = () => {
         <button className="close-event-popup">
           <i className="bx bx-x"></i>
         </button>
+      </div>
+      
+
         <div className="event">
           <div className="event-date-wrapper">
             <div className="event-date">May 16, 2025</div>
@@ -81,7 +84,7 @@ const Calender_app = () => {
             <i className="bx bxs-edit-alt"></i>
             <i className="bx bxs-message-alt-x"></i>
           </div>
-        </div>
+        
       </div>
     </div>
    </div>
