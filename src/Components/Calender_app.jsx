@@ -24,7 +24,7 @@ const Calender_app = () => {
 
     const currentDate = new Date();
     const currentDay = currentDate.getDate();
-    console.log
+
 
 
 
@@ -50,16 +50,16 @@ const handleDayClick = (day) =>{
   const clickedDate = new Date(currentYear, currentMonth, day);
   const today = new Date ();
 
-  console.log(`${clickedDate},This is today ${today}`)
+  // console.log(`${clickedDate},This is today ${today}`)
 
-  if(clickedDate >= today){
+  if(clickedDate >= today || IsSameDay){
     setSelectdate(clickedDate);
     setShowEventPopup(true)
   }
 
 }
 
-const IsSameDay = ( date1,date2){
+const IsSameDay = ( date1,date2) =>{
   return (
     date1.getFullYear() === date2.getFullYear() &&
     date1.getMonth() === date2.getMonth() &&
@@ -95,14 +95,14 @@ const IsSameDay = ( date1,date2){
       </div>
       <div className="days">
 
-      {/* {[...Array(firstDayOfMonth).keys()].map((_,index) =>{
+      {[...Array(firstDayOfMonth).keys()].map((_,index) =>(
           <span key={`Empty-${index}`} />
-        })}
+        ))}
 
-        {[...Array(daysInMonth).keys()].map((day) =>{
-          <span key={`Empty-${day + 1}`} >{day + 1}</span>
-        })} */}
-
+        {[...Array(daysInMonth).keys()].map((day) =>(
+          <span key={`Empty-${day + 1}`}  className={`day ${currentDay === day + 1 ? 'current-day' : '' }`}  onClick={() => (handleDayClick(day + 1))} >{day + 1}</span>
+        ))}
+{/* 
         {...Array(firstDayOfMonth)
         .fill(null)
         .map((_, index) => (
@@ -117,7 +117,7 @@ const IsSameDay = ( date1,date2){
                 >
                   {index + 1}
           </span>
-        ))}
+        ))} */}
 
 </div>
 
