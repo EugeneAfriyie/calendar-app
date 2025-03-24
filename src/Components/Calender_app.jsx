@@ -15,6 +15,7 @@ const Calender_app = () => {
       'June',
       'July',
       'August',
+      'September',
       'October',
       'November',
       'December' 
@@ -23,6 +24,7 @@ const Calender_app = () => {
 
     const currentDate = new Date();
     const currentDay = currentDate.getDate();
+    console.log
 
 
 
@@ -30,13 +32,40 @@ const Calender_app = () => {
     const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
     const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
     const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+    const [selectdate, setSelectdate] = useState(currentDate);
+    const [showEventPopup,setShowEventPopup] = useState(false)
 
-    console.log(firstDayOfMonth, daysInMonth)
+const prevMonth = () =>{
+  setCurrentMonth(prevMonth => prevMonth === 0 ? 11 : prevMonth - 1)
+  setCurrentYear(prevYear => currentMonth === 0 ? prevYear - 1 : prevYear)
+}
+
+const nextMonth = () =>{
+  setCurrentMonth(prevMonth => prevMonth === 11 ? 0 : prevMonth + 1)
+  setCurrentYear(prevYear => currentMonth === 11 ? prevYear + 1 : prevYear)
+}
 
 
+const handleDayClick = (day) =>{
+  const clickedDate = new Date(currentYear, currentMonth, day);
+  const today = new Date ();
 
+  console.log(`${clickedDate},This is today ${today}`)
 
+  if(clickedDate >= today){
+    setSelectdate(clickedDate);
+    setShowEventPopup(true)
+  }
 
+}
+
+const IsSameDay = ( date1,date2){
+  return (
+    date1.getFullYear() === date2.getFullYear() &&
+    date1.getMonth() === date2.getMonth() &&
+    date1.getDate() === date2.getDate() 
+  )
+}
 
 
   return (
@@ -44,12 +73,19 @@ const Calender_app = () => {
      <div className='calendar'>
       <h1 className="heading">Calendar</h1>
       <div className="navigate-date">
-        <h2 className="month">May,</h2>
-        <h2 className="year">2025</h2>
+        <h2 className="month">
+
+          {/* {monthsOfYear.map((month,index) =>{
+          {index === currentMonth && month  }
+        })} */}
+        {monthsOfYear[currentMonth]}
+        ,</h2>
+
+        <h2 className="year">{currentYear}</h2>
         
         <div className="buttons">
-          <i className="bx bx-chevron-left icon"></i>
-          <i className="bx bx-chevron-right"></i>
+          <i className="bx bx-chevron-left icon" onClick={prevMonth}></i>
+          <i className="bx bx-chevron-right" onClick={nextMonth}></i>
         </div>
       </div>
       <div className="weekdays">
@@ -58,6 +94,15 @@ const Calender_app = () => {
     
       </div>
       <div className="days">
+
+      {/* {[...Array(firstDayOfMonth).keys()].map((_,index) =>{
+          <span key={`Empty-${index}`} />
+        })}
+
+        {[...Array(daysInMonth).keys()].map((day) =>{
+          <span key={`Empty-${day + 1}`} >{day + 1}</span>
+        })} */}
+
         {...Array(firstDayOfMonth)
         .fill(null)
         .map((_, index) => (
@@ -66,14 +111,19 @@ const Calender_app = () => {
         {Array(daysInMonth)
         .fill(null)
         .map((_, index) => (
-          <span key={index} className="day">{index + 1}</span>
+          <span key={index} 
+                className={`day ${currentDay === index + 1 ? 'current-day' : '' }`} 
+                onClick={() => (handleDayClick(index + 1))}
+                >
+                  {index + 1}
+          </span>
         ))}
 
 </div>
 
     </div>
     <div className="events">
-      <div className="events-popup">
+     { showEventPopup && <div className="events-popup" >
         <div className="time-input">
           <div className="event-popup-time">Time</div>
           <input type="number" name='hours' min={0} max={24} className='hours' />
@@ -82,9 +132,9 @@ const Calender_app = () => {
         <textarea name="" placeholder='Enter Events Text (Maximunm 60 Characters)' id=""></textarea>
         <button className="event-popup-btn">Add Events</button>
         <button className="close-event-popup">
-          <i className="bx bx-x"></i>
+          <i className="bx bx-x" onClick={() => setShowEventPopup(false)}></i>
         </button>
-      </div>
+      </div>}
       
 
         <div className="event">
