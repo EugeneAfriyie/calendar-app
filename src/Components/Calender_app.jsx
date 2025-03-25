@@ -34,6 +34,9 @@ const Calender_app = () => {
     const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
     const [selectdate, setSelectdate] = useState(currentDate);
     const [showEventPopup,setShowEventPopup] = useState(false)
+    const [event, setEvent] = useState([]);
+    const [eventTime,setEventTime] = useState({hours: '00', minutes: '00'})
+    const [eventText,setEventText] = useState('');
 
 const prevMonth = () =>{
   setCurrentMonth(prevMonth => prevMonth === 0 ? 11 : prevMonth - 1)
@@ -55,6 +58,8 @@ const handleDayClick = (day) =>{
   if(clickedDate >= today || IsSameDay){
     setSelectdate(clickedDate);
     setShowEventPopup(true)
+    setEventTime({hours: '00', minutes: '00'});
+    setEventText('');
   }
 
 }
@@ -65,6 +70,19 @@ const IsSameDay = ( date1,date2) =>{
     date1.getMonth() === date2.getMonth() &&
     date1.getDate() === date2.getDate() 
   )
+}
+
+const handleEventSumit = () =>{
+  const newEvent = {
+    date:selectdate,
+    time: `${eventTime.hours.padStart(2, '0')}:${eventTime.minutes.padStart(2, '0')}`,
+    text: eventText
+  }
+
+  setEvent([...event,newEvent]);
+  setEventTime({hours: '00', minutes: '00'});
+  setEventText('');
+  setShowEventPopup(false)
 }
 
 
