@@ -25,6 +25,8 @@ const Calender_app = () => {
     const currentDate = new Date();
     const currentDay = currentDate.getDate();
 
+    console.log(currentDay)
+
 
 
 
@@ -37,6 +39,11 @@ const Calender_app = () => {
     const [event, setEvent] = useState([]);
     const [eventTime,setEventTime] = useState({hours: '00', minutes: '00'})
     const [eventText,setEventText] = useState('');
+    const [editingEvent,setEditingEvent] = useState(null);
+
+
+
+ 
 
 const prevMonth = () =>{
   setCurrentMonth(prevMonth => prevMonth === 0 ? 11 : prevMonth - 1)
@@ -48,22 +55,6 @@ const nextMonth = () =>{
   setCurrentYear(prevYear => currentMonth === 11 ? prevYear + 1 : prevYear)
 }
 
-
-const handleDayClick = (day) =>{
-  const clickedDate = new Date(currentYear, currentMonth, day);
-  const today = new Date ();
-
-  // console.log(`${clickedDate},This is today ${today}`)
-
-  if(clickedDate >= today || IsSameDay){
-    setSelectdate(clickedDate);
-    setShowEventPopup(true)
-    setEventTime({hours: '00', minutes: '00'});
-    setEventText('');
-  }
-
-}
-
 const IsSameDay = ( date1,date2) =>{
   return (
     date1.getFullYear() === date2.getFullYear() &&
@@ -72,8 +63,27 @@ const IsSameDay = ( date1,date2) =>{
   )
 }
 
+const handleDayClick = (day) =>{
+  const clickedDate = new Date(currentYear, currentMonth, day);
+  const today = new Date ();
+
+  console.log(`${clickedDate},This is today ${today}`)
+
+  if(clickedDate >= today || IsSameDay(clickedDate,today)){
+    setSelectdate(clickedDate);
+    setShowEventPopup(true)
+    setEventTime({hours: '00', minutes: '00'});
+    setEventText('');
+    setEditingEvent(null);
+  }
+
+}
+
+
+
 const handleEventSumit = () =>{
   const newEvent = {
+    id: editingEvent ? editingEvent.id : new Date().getTime(),
     date:selectdate,
     time: `${eventTime.hours.padStart(2, '0')}:${eventTime.minutes.padStart(2, '0')}`,
     text: eventText
@@ -83,7 +93,7 @@ const handleEventSumit = () =>{
   setEventTime({hours: '00', minutes: '00'});
   setEventText('');
   setShowEventPopup(false)
-  console.log(event)
+  // console.log(event)
 }
 
 
