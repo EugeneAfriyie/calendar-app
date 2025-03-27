@@ -22,4 +22,5 @@ html{
   display: grid;
   place-items: center;
   perspective: 100rem;
+  overflow: hidden;
 }

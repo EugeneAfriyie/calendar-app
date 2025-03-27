@@ -25,7 +25,7 @@ const Calender_app = () => {
     const currentDate = new Date();
     const currentDay = currentDate.getDate();
 
-    console.log(currentDay)
+    // console.log(currentDay)
 
 
 
@@ -67,35 +67,75 @@ const handleDayClick = (day) =>{
   const clickedDate = new Date(currentYear, currentMonth, day);
   const today = new Date ();
 
-  console.log(`${clickedDate},This is today ${today}`)
+  // console.log(`${clickedDate},This is today ${today}`);
 
   if(clickedDate >= today || IsSameDay(clickedDate,today)){
+    setEditingEvent(null);
     setSelectdate(clickedDate);
     setShowEventPopup(true)
     setEventTime({hours: '00', minutes: '00'});
     setEventText('');
-    setEditingEvent(null);
   }
-
 }
 
 
+
+let updateEvent = [...event]
+// console.log(updateEvent)
+// console.log(event)
 
 const handleEventSumit = () =>{
   const newEvent = {
     id: editingEvent ? editingEvent.id : new Date().getTime(),
     date:selectdate,
-    time: `${eventTime.hours.padStart(2, '0')}:${eventTime.minutes.padStart(2, '0')}`,
+    time: `${String(eventTime.hours).padStart(2, '0')}:${String(eventTime.minutes).padStart(2, '0')}`,
     text: eventText
   }
 
-  setEvent([...event,newEvent]);
+  if(editingEvent){
+    updateEvent = updateEvent.map(event =>
+      event.id === editingEvent.id ? newEvent : event
+    );
+  }else{
+    updateEvent = [...updateEvent, newEvent]
+  }
+
+  // updateEvent.sort((a,b) => {
+  //   if(a.date.getTime() === b.date.getTime()){
+  //     return a.time.localeCompare(b.time)
+  //   }
+  //   return a.date.getTime() - b.date.getTime()
+  // })
+
+
+  updateEvent.sort((a,b) => {new Date(a.date) - new Date(b.date)})
+
+  setEvent(updateEvent);
   setEventTime({hours: '00', minutes: '00'});
   setEventText('');
   setShowEventPopup(false)
+  setEditingEvent(null);
   // console.log(event)
 }
 
+
+const handleEditEvent = (event) =>{
+  setSelectdate(new Date(event.date));
+  setEventTime({hours: event.time.split(':')[0], minutes: event.time.split(':')[1]}); 
+  setEventText(event.text);
+  setEditingEvent(event)
+  setShowEventPopup(true)
+}
+
+const handleDeleteEvent = (eventid) =>{
+  const updateEvent = event.filter((event) => event.id !== eventid);
+  setEvent(updateEvent);  
+}
+
+const handlTimeChange = (e) =>{
+  const {name,value} = e.target;
+  const newTime = {...eventTime, [name]: value.padStart(2, '0')}
+  setEventTime(newTime)}
 
   return (
    <div className="calendar-app">
@@ -155,8 +195,15 @@ const handleEventSumit = () =>{
      { showEventPopup && <div className="events-popup" >
         <div className="time-input">
           <div className="event-popup-time">Time</div>
-          <input type="number" name='hours' min={0} max={24} className='hours' value={eventTime.hours}  onChange={(e) =>{setEventTime({...eventTime,hours:e.target.value})}}/>
-          <input type="number" name='minutes' min={0} max={60} className='minutes' value={eventTime.minutes} onChange={(e) =>{setEventTime({...eventTime,minutes:e.target.value})}}/>
+          <input type="number" name='hours' min={0} max={24} className='hours' value={eventTime.hours} 
+          //  onChange={(e) =>{setEventTime({...eventTime,hours:e.target.value})}}
+          onChange={handlTimeChange}
+           />
+          <input type="number" name='minutes' min={0} max={60} className='minutes' value={eventTime.minutes}
+          //  onChange={(e) =>{setEventTime({...eventTime,minutes:e.target.value})}}
+          onChange={handlTimeChange}
+           
+           />
         </div>
         <textarea name="" placeholder='Enter Events Text (Maximunm 60 Characters)' 
                   value={eventText} 
@@ -165,7 +212,7 @@ const handleEventSumit = () =>{
                   }}} 
                   id=""
                   ></textarea>
-        <button className="event-popup-btn" onClick={handleEventSumit}>Add Events</button>
+        <button className="event-popup-btn" onClick={handleEventSumit}>{editingEvent ? 'Update Event' : 'Add Events'}</button>
         <button className="close-event-popup">
           <i className="bx bx-x" onClick={() => setShowEventPopup(false)}></i>
         </button>
@@ -181,8 +228,8 @@ const handleEventSumit = () =>{
           </div>
           <div className="event-text">{event.text}</div>
           <div className="event-buttons">
-            <i className="bx bxs-edit-alt"></i>
-            <i className="bx bxs-message-alt-x"></i>
+            <i className="bx bxs-edit-alt" onClick={() => handleEditEvent(event)}></i>
+            <i className="bx bxs-message-alt-x" onClick={() => handleDeleteEvent(event.id)}></i>
           </div>
         
         </div>
