@@ -134,8 +134,8 @@
   height: auto;
   margin: auto;
   /* transform: translateY(-150%); */
+  /* width: clamp(25rem, 21cqi,45rem); */
  background-color: #161b22;
- /* width: clamp(25rem, 21cqi,45rem); */
  aspect-ratio: 10 / 9;
  border-radius: 1rem;
  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.3);
@@ -146,12 +146,13 @@
  row-gap: 2rem;
  z-index: 100;
  transition: transform .8s ease-in-out;
+ padding: 0 1rem 2rem;
 
  /* display: none; */
 }
 
 .transform{
-  transform: translateY(-200%);
+  transform: translateY(-300%);
 }
 
 .transform-active{
@@ -208,18 +209,20 @@
 
 .event{
   width: 100%;
-  height: 7rem;
+  height: auto;
   background-color: #003aff;
-  padding:  1.5rem 0;
+  padding:  1.5rem ;
   border-radius: 1rem;
   display: flex;
   align-items: center;
   margin-bottom: 2rem;
   position: relative;
+
 }
 
+
 .events-popup textarea{
-  width: 15rem ,15cqi, 25rem;
+  width: clamp(15rem ,15cqi, 25rem);
   aspect-ratio: 5 / 2;
   resize: none;
   background-color: #0f1319;
@@ -260,13 +263,26 @@
   cursor: pointer;
 }
 
+.close-popup-div{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  margin-top: 1rem;
+}
+.close-event-popup:hover{
+  background-color: #ef1811;
+  /* border-radius: 50%; */
+  box-shadow: 0 0 1.5rem 1rem rgba(239, 144, 17 ,.2);
+}
+
 .close-event-popup{
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+
   background-color: transparent;
   border: none;
   cursor: pointer;
+ 
 }
 
 .close-event-popup i{
@@ -282,12 +298,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 25%;
+  /* width: auto; */
   border-right: .1rem solid rgba(255, 255, 255, .5);
+  /* white-space: nowrap; */
+  padding-right: 0.5rem;
+
+  
 }
 
 .event-date{
   font-size: clamp(1rem , 1cqi, 1.2rem);
+  color: #fff;
+
 }
 
 .event-time{
@@ -301,16 +323,16 @@
   font-size: clamp(1.2rem,1cqi,1.4rem);
   line-height: 2rem;
   color: #fff;
-  width: 75%;
+  width: 69%;
   padding: 0 .3rem 0 1rem;
   overflow-wrap: break-word;
 }
 
 .event-buttons{
-  position: absolute;
+  /* position: absolute; */
   top: 50%;
   right: 1rem;
-  transform: translateY(-50%);
+  /* transform: translateY(-50%); */
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
@@ -322,6 +344,18 @@
   cursor: pointer;
 }
 
+
+.selected-date{
+  display: flex;
+  gap: .5rem;
+  background-color: #ef9011;
+  color: #fff;
+  padding: 1rem;
+  font-weight: bold;
+  border-radius: 0%;
+  box-shadow: 0 0 1.5rem 1rem rgba(239, 144, 17 ,.3);
+  font-size: clamp(1.2rem, 1cqi, 2rem);
+}
 
 
 @media (max-width: 900px){

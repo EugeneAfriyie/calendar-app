@@ -26,8 +26,8 @@ const Calender_app = () => {
     const currentDay = currentDate.getDate();
 
 
-    console.log(currentDay)
-    console.log(currentDate.getMonth())
+    // console.log(currentDay)
+    // console.log(currentDate.getMonth())
 
 
 
@@ -74,6 +74,7 @@ const handleDayClick = (day) =>{
   if(clickedDate >= today || IsSameDay(clickedDate,today)){
     setEditingEvent(null);
     setSelectdate(clickedDate);
+    console.log(clickedDate)
     setShowEventPopup(true)
     setEventTime({hours: '00', minutes: '00'});
     setEventText('');
@@ -202,21 +203,36 @@ const handlTimeChange = (e) =>{
        {event.map((event,index) =>(
           <div key={index} className="event">
           <div className="event-date-wrapper">
-            <div className="event-date">{`${monthsOfYear[event.date.getMonth()]} ${event.date.getDate()}, ${event.date.getFullYear()}}`}</div>
+            <div className="event-date">{`${monthsOfYear[event.date.getMonth()]} ${event.date.getDate()}, ${event.date.getFullYear()}`}</div>
             <div className="event-time">{event.time}</div>
           </div>
+
           <div className="event-text">{event.text}</div>
-          <div className="event-buttons">
-            <i className="bx bxs-edit-alt" onClick={() => handleEditEvent(event)}></i>
-            <i className="bx bxs-message-alt-x" onClick={() => handleDeleteEvent(event.id)}></i>
-          </div>
+            <div className="event-buttons">
+              <i className="bx bxs-edit-alt" onClick={() => handleEditEvent(event)}></i>
+              <i className="bx bxs-message-alt-x" onClick={() => handleDeleteEvent(event.id)}></i>
+            </div>
         
-        </div>
+          </div>
         ))}
        </div>
     </div>
    </div>
    <div  className={ `events-popup ${showEventPopup ? 'transform-active' : 'transform'}`} >
+        <div className="close-popup-div">
+        <button className="close-event-popup">
+          <i className="bx bx-x" onClick={() => setShowEventPopup(false)}></i>
+        </button>
+        </div>
+        <div className="selected-date">
+          <p>Selected Date :</p>
+          <p>
+          <span>{monthsOfYear[selectdate.getMonth()]}</span>
+          <span> {selectdate.getDate()}</span>
+          <span>, {selectdate.getFullYear()}</span>
+        </p>
+
+        </div>
         <div className="time-input">
           <div className="event-popup-time">Time</div>
           <input type="number" name='hours' min={0} max={24} className='hours' value={eventTime.hours} 
@@ -237,9 +253,7 @@ const handlTimeChange = (e) =>{
                   id=""
                   ></textarea>
         <button className="event-popup-btn" onClick={handleEventSumit}>{editingEvent ? 'Update Event' : 'Add Events'}</button>
-        <button className="close-event-popup">
-          <i className="bx bx-x" onClick={() => setShowEventPopup(false)}></i>
-        </button>
+       
       </div>
     {showEventPopup && <div className="overlay" onClick={() => setShowEventPopup(false)}></div>}
    </>
