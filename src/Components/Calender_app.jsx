@@ -138,6 +138,7 @@ const handlTimeChange = (e) =>{
   setEventTime(newTime)}
 
   return (
+    <>
    <div className="calendar-app">
      <div className='calendar'>
       <h1 className="heading">Calendar</h1>
@@ -192,7 +193,28 @@ const handlTimeChange = (e) =>{
 
     </div>
     <div className="events">
-     { showEventPopup && <div className="events-popup" >
+    
+      
+
+       <div className="">
+       {event.map((event,index) =>(
+          <div key={index} className="event">
+          <div className="event-date-wrapper">
+            <div className="event-date">{`${monthsOfYear[event.date.getMonth()]} ${event.date.getDate()}, ${event.date.getFullYear()}}`}</div>
+            <div className="event-time">{event.time}</div>
+          </div>
+          <div className="event-text">{event.text}</div>
+          <div className="event-buttons">
+            <i className="bx bxs-edit-alt" onClick={() => handleEditEvent(event)}></i>
+            <i className="bx bxs-message-alt-x" onClick={() => handleDeleteEvent(event.id)}></i>
+          </div>
+        
+        </div>
+        ))}
+       </div>
+    </div>
+   </div>
+   <div  className={ `events-popup ${showEventPopup ? 'transform-active' : 'transform'}`} >
         <div className="time-input">
           <div className="event-popup-time">Time</div>
           <input type="number" name='hours' min={0} max={24} className='hours' value={eventTime.hours} 
@@ -216,27 +238,9 @@ const handlTimeChange = (e) =>{
         <button className="close-event-popup">
           <i className="bx bx-x" onClick={() => setShowEventPopup(false)}></i>
         </button>
-      </div>}
-      
-
-       <div className="">
-       {event.map((event,index) =>(
-          <div key={index} className="event">
-          <div className="event-date-wrapper">
-            <div className="event-date">{`${monthsOfYear[event.date.getMonth()]} ${event.date.getDate()}, ${event.date.getFullYear()}}`}</div>
-            <div className="event-time">{event.time}</div>
-          </div>
-          <div className="event-text">{event.text}</div>
-          <div className="event-buttons">
-            <i className="bx bxs-edit-alt" onClick={() => handleEditEvent(event)}></i>
-            <i className="bx bxs-message-alt-x" onClick={() => handleDeleteEvent(event.id)}></i>
-          </div>
-        
-        </div>
-        ))}
-       </div>
-    </div>
-   </div>
+      </div>
+    {showEventPopup && <div className="overlay" onClick={() => setShowEventPopup(false)}></div>}
+   </>
   )
 }
 
