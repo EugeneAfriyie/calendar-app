@@ -25,7 +25,9 @@ const Calender_app = () => {
     const currentDate = new Date();
     const currentDay = currentDate.getDate();
 
-    // console.log(currentDay)
+
+    console.log(currentDay)
+    console.log(currentDate.getMonth())
 
 
 
@@ -170,7 +172,7 @@ const handlTimeChange = (e) =>{
         ))}
 
         {[...Array(daysInMonth).keys()].map((day) =>(
-          <span key={`Empty-${day + 1}`}  className={`day ${currentDay === day + 1 ? 'current-day' : '' }`}  onClick={() => (handleDayClick(day + 1))} >{day + 1}</span>
+          <span key={`Empty-${day + 1}`}  className={`day ${currentDay  === day + 1 && currentMonth === currentDate.getMonth() && currentYear === new Date().getFullYear()  ? 'current-day' : '' }`}  onClick={() => (handleDayClick(day + 1))} >{day + 1}</span>
         ))}
 {/* 
         {...Array(firstDayOfMonth)

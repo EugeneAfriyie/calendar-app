@@ -25,6 +25,6 @@ html{
   place-items: center;
   perspective: 100rem;
   overflow: hidden;
-  /* overflow-y: auto; */
+  overflow-y: auto;
   padding: 4rem 0;
 }
